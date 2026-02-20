@@ -1,55 +1,168 @@
 <!DOCTYPE html>
+<!-- Declara que el documento es HTML5, el estándar moderno de HTML -->
+
 <html lang="es">
+<!-- Abre el elemento raíz del documento HTML. lang="es" indica que el idioma del contenido es español -->
+
 <head>
+<!-- Sección de metadatos del documento (no visible en pantalla) -->
+
     <meta charset="UTF-8">
+    <!-- Define la codificación de caracteres como UTF-8, permitiendo tildes, ñ y otros caracteres especiales -->
+
     <title>Manual Sysluc 1.0</title>
+    <!-- Título que aparece en la pestaña del navegador -->
+
 </head>
+<!-- Cierra la sección de metadatos -->
+
 <body style="background-color: #f0f2f5; padding: 40px;">
+<!-- Abre el cuerpo visible de la página.
+     background-color: #f0f2f5 → fondo gris claro azulado
+     padding: 40px → espacio interior de 40px en todos los lados -->
 
     <div style="max-width: 900px; margin: auto; font-family: 'Segoe UI', sans-serif; border: 1px solid #ddd; border-radius: 10px; padding: 30px; background-color: #fdfdfd; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <!-- Contenedor principal tipo tarjeta centrada:
+         max-width: 900px → ancho máximo de 900 píxeles
+         margin: auto → centra horizontalmente el contenedor
+         font-family: 'Segoe UI', sans-serif → fuente moderna de Windows
+         border: 1px solid #ddd → borde gris claro de 1px
+         border-radius: 10px → esquinas redondeadas
+         padding: 30px → espacio interior de 30px
+         background-color: #fdfdfd → fondo casi blanco
+         box-shadow → sombra suave para efecto de tarjeta elevada -->
         
         <h2 style="color: #1E3A8A; text-align: center; border-bottom: 2px solid #1E3A8A; padding-bottom: 15px; margin-bottom: 30px;">
+        <!-- Título principal de la tarjeta:
+             color: #1E3A8A → azul oscuro
+             text-align: center → texto centrado
+             border-bottom: 2px solid #1E3A8A → línea azul debajo del título
+             padding-bottom: 15px → espacio entre el texto y la línea inferior
+             margin-bottom: 30px → separación de 30px hacia el contenido siguiente -->
+
             Ficha Técnica: Versión Sysluc 1.0
+            <!-- Texto del encabezado principal -->
+
         </h2>
+        <!-- Cierra el encabezado h2 -->
         
         <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+        <!-- Contenedor de las tarjetas de tecnologías:
+             display: flex → activa el modelo de caja flexible (Flexbox)
+             justify-content: space-around → distribuye las tarjetas con espacio igual alrededor
+             flex-wrap: wrap → permite que las tarjetas pasen a la siguiente línea si no caben -->
+
             <div style="width: 180px; text-align: center; margin: 15px; padding: 15px; border: 1px solid #e5e7eb; border-radius: 10px;">
+            <!-- Tarjeta individual para Python:
+                 width: 180px → ancho fijo de 180px
+                 text-align: center → contenido centrado
+                 margin: 15px → separación exterior de 15px
+                 padding: 15px → espacio interior de 15px
+                 border: 1px solid #e5e7eb → borde gris muy claro
+                 border-radius: 10px → esquinas redondeadas -->
+
                 <div style="font-size: 50px; margin-bottom: 10px;">🐍</div>
+                <!-- Emoji de serpiente (Python) mostrado en tamaño grande (50px) con margen inferior de 10px -->
+
                 <h3 style="color: #2563EB; margin: 5px 0;">Python</h3>
+                <!-- Nombre de la tecnología en azul (#2563EB) con margen vertical de 5px -->
+
                 <p style="font-size: 13px; color: #444;">Orquestador lógico y manejo de archivos dinámicos.</p>
+                <!-- Descripción breve de Python: fuente pequeña (13px) y color gris oscuro (#444) -->
+
             </div>
+            <!-- Cierra la tarjeta de Python -->
 
             <div style="width: 180px; text-align: center; margin: 15px; padding: 15px; border: 1px solid #e5e7eb; border-radius: 10px;">
+            <!-- Tarjeta individual para Streamlit (mismos estilos que la tarjeta anterior) -->
+
                 <div style="font-size: 50px; margin-bottom: 10px;">🌐</div>
+                <!-- Emoji de globo terráqueo (web/Streamlit) en tamaño grande -->
+
                 <h3 style="color: #2563EB; margin: 5px 0;">Streamlit</h3>
+                <!-- Nombre de la tecnología Streamlit en azul -->
+
                 <p style="font-size: 13px; color: #444;">Interfaz web interactiva con botones estilo Bootstrap.</p>
+                <!-- Descripción breve de Streamlit -->
+
             </div>
+            <!-- Cierra la tarjeta de Streamlit -->
 
             <div style="width: 180px; text-align: center; margin: 15px; padding: 15px; border: 1px solid #e5e7eb; border-radius: 10px;">
+            <!-- Tarjeta individual para SQL Server (mismos estilos que las tarjetas anteriores) -->
+
                 <div style="font-size: 50px; margin-bottom: 10px;">🗄️</div>
+                <!-- Emoji de servidor/base de datos (SQL Server) en tamaño grande -->
+
                 <h3 style="color: #2563EB; margin: 5px 0;">SQL Server</h3>
+                <!-- Nombre de la tecnología SQL Server en azul -->
+
                 <p style="font-size: 13px; color: #444;">Almacenamiento masivo para los 15 millones de registros.</p>
+                <!-- Descripción breve de SQL Server -->
+
             </div>
+            <!-- Cierra la tarjeta de SQL Server -->
+
         </div>
+        <!-- Cierra el contenedor flex de las tres tarjetas de tecnologías -->
 
         <div style="background-color: #EFF6FF; padding: 20px; border-radius: 8px; margin-top: 30px; border-left: 5px solid #2563EB;">
+        <!-- Caja de requisitos de instalación con estilo de alerta informativa:
+             background-color: #EFF6FF → fondo azul muy claro
+             padding: 20px → espacio interior de 20px
+             border-radius: 8px → esquinas ligeramente redondeadas
+             margin-top: 30px → separación de 30px desde las tarjetas superiores
+             border-left: 5px solid #2563EB → barra azul gruesa a la izquierda (estilo alerta) -->
+
             <h4 style="margin-top: 0; color: #1E40AF; font-size: 18px;">🛠️ Requisitos de Instalación en Windows</h4>
+            <!-- Subtítulo de la sección de requisitos:
+                 margin-top: 0 → elimina el margen superior por defecto del h4
+                 color: #1E40AF → azul oscuro
+                 font-size: 18px → tamaño de fuente de 18px -->
+
             <ul style="font-size: 14px; color: #1E3A8A; line-height: 1.6;">
+            <!-- Lista desordenada de requisitos:
+                 font-size: 14px → texto pequeño
+                 color: #1E3A8A → azul oscuro
+                 line-height: 1.6 → interlineado amplio para mejor legibilidad -->
+
                 <li><strong>Python 3.10+:</strong> Lenguaje base para la ejecución.</li>
+                <!-- Elemento de lista: indica que se requiere Python versión 3.10 o superior -->
+
                 <li><strong>Librerías:</strong> Instalar vía terminal con <code>pip install streamlit pyodbc pandas</code>.</li>
+                <!-- Elemento de lista: muestra el comando pip para instalar las dependencias necesarias.
+                     <code> aplica estilo de fuente monoespaciada al comando -->
+
                 <li><strong>Configuración:</strong> El sistema opera bajo la ruta <code>C:\Indicadores2022\</code>.</li>
+                <!-- Elemento de lista: indica la ruta del sistema donde debe estar instalado el proyecto -->
+
                 <li><strong>Credenciales:</strong> Acceso configurado con el usuario <code>diresa</code>.</li>
+                <!-- Elemento de lista: indica el usuario de base de datos configurado para el acceso -->
+
             </ul>
+            <!-- Cierra la lista de requisitos -->
+
         </div>
+        <!-- Cierra la caja de requisitos de instalación -->
 
         <p style="text-align: center; color: #9ca3af; font-size: 12px; margin-top: 20px;">
+        <!-- Párrafo de pie de página:
+             text-align: center → texto centrado
+             color: #9ca3af → gris claro (texto secundario/discreto)
+             font-size: 12px → texto muy pequeño
+             margin-top: 20px → separación de 20px desde el bloque anterior -->
+
             Documentación generada para el Proyecto de Salud - Febrero 2026 - cbh
+            <!-- Texto del pie: autoría, fecha y proyecto al que pertenece el manual -->
+
         </p>
+        <!-- Cierra el párrafo de pie de página -->
+
     </div>
-
-
-
-
+    <!-- Cierra el contenedor principal tipo tarjeta -->
 
 </body>
+<!-- Cierra el cuerpo visible del documento -->
+
 </html>
+<!-- Cierra el documento HTML -->
