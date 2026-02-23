@@ -141,3 +141,15 @@ def ejecutar_carga_masiva_dinamica():
 
     except Exception as e:                                                      # Captura cualquier excepción que ocurra durante el proceso
         return False, f"Error en Carga Dinámica: {str(e)}"                     # Retorna fallo (False) con el mensaje de error detallado
+
+
+def probar_conexion():
+    """Verifica si Python puede entrar al SQL Server."""
+    try:
+        # Intentamos conectar a la base master para validar el acceso
+        conn_str = obtener_string_conexion(config.DATABASE_MASTER)
+        conn = pyodbc.connect(conn_str)
+        conn.close()
+        return True, "¡Conexión Exitosa con SQL Server!"
+    except Exception as e:
+        return False, f"Error de conexión: {str(e)}"
