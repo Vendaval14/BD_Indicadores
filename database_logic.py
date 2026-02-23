@@ -77,7 +77,8 @@ def ejecutar_carga_datos():
         # Ruta definida según tu requerimiento
         ruta_carga = r'C:\Indicadores2022\CONEXION\CargaMasiva.sql'             # Define la ruta absoluta del archivo SQL de carga masiva (la 'r' antes de la cadena indica raw string, evitando que las barras invertidas se interpreten como caracteres especiales)
 
-        with open(ruta_carga, 'r', encoding='latin-1') as f:                   # Abre el archivo CargaMasiva.sql en modo lectura con codificación latin-1
+        # 'utf-8-sig' detecta y elimina automáticamente esos caracteres invisibles (BOM)
+        with open(ruta_carga, 'r', encoding='utf-8-sig') as f:                  # Abre el archivo CargaMasiva.sql en modo lectura con codificación latin-1
             script = f.read()                                                   # Lee todo el contenido del archivo SQL como texto
 
         bloques = re.split(r'\bGO\b', script, flags=re.IGNORECASE)             # Divide el script en bloques usando "GO" como separador de lotes T-SQL, ignorando mayúsculas/minúsculas
