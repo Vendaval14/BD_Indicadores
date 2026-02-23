@@ -2,3 +2,9 @@ __pycache__/
 *.pyc
 .venv/
 .env
+
+# Ignorar archivos temporales de SQL o logs
+*.log
+
+# Ignorar los CSV si estuvieran dentro de la carpeta del proyecto
+*.csv
