@@ -103,45 +103,41 @@ def ejecutar_carga_datos():
 def ejecutar_carga_masiva_dinamica():
     """
     OPCIÓN B: Carga dinámica por carpetas.
-    Busca automáticamente archivos CSV por año sin necesidad de editar el .sql.
+    Ahora incluye limpieza inicial para evitar duplicados.
     """
+    try:
+        conn_str = obtener_string_conexion(config.DATABASE_FINAL)
+        # Importante: autocommit=True para que el TRUNCATE se ejecute de inmediato
+        conn = pyodbc.connect(conn_str, autocommit=True)
+        cursor = conn.cursor()
+        
+        # --- PASO NUEVO: LIMPIEZA ---
+        # Limpiamos la tabla antes de empezar la carga dinámica
+        cursor.execute("TRUNCATE TABLE NOMINAL_TRAMA")
+        
+        anios = ['2021', '2022', '2023', '2024', '2025', '2026']
+        archivos_procesados = 0
 
-    try:                                                                        # Inicia bloque de manejo de errores
-        conn_str = obtener_string_conexion(config.DATABASE_FINAL)               # Obtiene la cadena de conexión a la base de datos final
-        conn = pyodbc.connect(conn_str, autocommit=True)                        # Abre la conexión con SQL Server con autocommit activado
-        cursor = conn.cursor()                                                  # Crea el cursor para ejecutar sentencias SQL
-
-        anios = ['2021', '2022', '2023', '2024', '2025', '2026']               # Define la lista de años a procesar; se buscará una subcarpeta por cada año
-        archivos_procesados = 0                                                 # Inicializa el contador de archivos CSV procesados en cero
-
-        for anio in anios:                                                      # Itera sobre cada año de la lista
-            ruta_anio = os.path.join(config.RUTA_CARPETA_CSV, anio)            # Construye la ruta completa de la carpeta del año actual (ej: C:\CSV\2022)
-            if os.path.exists(ruta_anio):                                       # Verifica si la carpeta del año existe en el sistema de archivos antes de intentar acceder a ella
-                for archivo in os.listdir(ruta_anio):                          # Lista todos los archivos dentro de la carpeta del año e itera sobre ellos
-                    if archivo.endswith('.csv'):                                # Filtra solo los archivos que tengan extensión .csv
-                        ruta_completa = os.path.join(ruta_anio, archivo)       # Construye la ruta completa del archivo CSV (carpeta + nombre de archivo)
-
-                        # BULK INSERT dinámico generado por Python
+        for anio in anios:
+            ruta_anio = os.path.join(config.RUTA_CARPETA_CSV, anio)
+            if os.path.exists(ruta_anio):
+                # Listamos archivos y los cargamos
+                for archivo in os.listdir(ruta_anio):
+                    if archivo.endswith('.csv'):
+                        ruta_completa = os.path.join(ruta_anio, archivo)
+                        # Generamos el comando SQL al vuelo
                         sql_bulk = f"""
-                        BULK INSERT NOMINAL_TRAMA                               
-                        FROM '{ruta_completa}'                                  
+                        BULK INSERT NOMINAL_TRAMA 
+                        FROM '{ruta_completa}' 
                         WITH (FIRSTROW = 2, FIELDTERMINATOR = ',', ROWTERMINATOR='\\n');
                         """
-                        # ↑ Genera dinámicamente la sentencia T-SQL BULK INSERT:
-                        #   - NOMINAL_TRAMA: tabla destino donde se insertarán los datos
-                        #   - FROM: ruta del archivo CSV a cargar
-                        #   - FIRSTROW = 2: omite la primera fila (encabezados del CSV)
-                        #   - FIELDTERMINATOR = ',': indica que los campos están separados por coma
-                        #   - ROWTERMINATOR = '\n': indica que cada fila termina con salto de línea
-
-                        cursor.execute(sql_bulk)                                # Ejecuta la sentencia BULK INSERT en SQL Server para cargar el archivo CSV en la tabla
-                        archivos_procesados += 1                                # Incrementa el contador de archivos procesados en 1
-
-        conn.close()                                                            # Cierra la conexión con la base de datos al finalizar todos los años
-        return True, f"Carga Dinámica completada. {archivos_procesados} archivos procesados."   # Retorna éxito (True) con el total de archivos cargados
-
-    except Exception as e:                                                      # Captura cualquier excepción que ocurra durante el proceso
-        return False, f"Error en Carga Dinámica: {str(e)}"                     # Retorna fallo (False) con el mensaje de error detallado
+                        cursor.execute(sql_bulk)
+                        archivos_procesados += 1
+        
+        conn.close()
+        return True, f"Carga Dinámica completada. Tabla limpiada y {archivos_procesados} archivos procesados."
+    except Exception as e:
+        return False, f"Error en Carga Dinámica: {str(e)}"                 # Retorna fallo (False) con el mensaje de error detallado
 
 
 def probar_conexion():
