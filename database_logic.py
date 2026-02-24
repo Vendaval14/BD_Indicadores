@@ -150,3 +150,32 @@ def probar_conexion():
         return True, "¡Conexión Exitosa con SQL Server!"
     except Exception as e:
         return False, f"Error de conexión: {str(e)}"
+    
+
+def configurar_entorno_inicial():
+    """Crea el login cbautista usando la autenticación de Windows del compañero."""
+    try:
+        # Conexión especial usando Trusted_Connection (no pide clave de SQL)
+        conn_str_win = (
+            f"DRIVER={{SQL Server}};"
+            f"SERVER={config.SQL_SERVER};"
+            f"DATABASE=master;"
+            "Trusted_Connection=yes;"
+        )
+        conn = pyodbc.connect(conn_str_win, autocommit=True)
+        cursor = conn.cursor()
+
+        # Script para crear tu usuario si no existe
+        sql = f"""
+        IF NOT EXISTS (SELECT name FROM sys.server_principals WHERE name = '{config.SQL_USER}')
+        BEGIN
+            CREATE LOGIN [{config.SQL_USER}] WITH PASSWORD = N'{config.SQL_PASS}', 
+            DEFAULT_DATABASE = [master], CHECK_EXPIRATION = OFF, CHECK_POLICY = OFF;
+            ALTER SERVER ROLE [sysadmin] ADD MEMBER [{config.SQL_USER}];
+        END
+        """
+        cursor.execute(sql)
+        conn.close()
+        return True, f"✅ Usuario [{config.SQL_USER}] configurado con éxito."
+    except Exception as e:
+        return False, f"❌ Error de permisos: {str(e)}. (Asegúrate de ejecutar como Administrador)"

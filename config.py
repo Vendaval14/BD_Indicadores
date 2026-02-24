@@ -6,8 +6,8 @@ DATABASE_MASTER = "master"  # Base de datos del sistema para operaciones de borr
 DATABASE_FINAL = "BD_Indicadores" # Tu base de datos de trabajo real.
 
 # Estas son las credenciales que Python usará para "tocar la puerta" de SQL.
-SQL_USER = "diresa"
-SQL_PASS = "urico"
+SQL_USER = "cbautista"
+SQL_PASS = "TuClave2026"
 
 # Rutas de Windows. Usamos la 'r' (raw string) al inicio para que Python 
 # no se confunda con las barras invertidas (\) de las carpetas.

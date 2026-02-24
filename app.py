@@ -147,3 +147,12 @@ st.subheader("Estado de las Atenciones")
 
 # Muestra un texto pequeño (caption) como nota informativa para el usuario
 st.caption("Una vez finalizada la carga, podrás visualizar aquí el resumen de registros por año.")
+
+# Dentro de app.py, puedes poner esto al principio de la barra lateral o del menú principal
+st.sidebar.title("⚙️ Configuración Inicial")
+if st.sidebar.button("🚀 Inicializar Sistema en esta PC"):
+    con_exito, con_msj = db.configurar_entorno_inicial()
+    if con_exito:
+        st.sidebar.success(con_msj)
+    else:
+        st.sidebar.error(con_msj)
