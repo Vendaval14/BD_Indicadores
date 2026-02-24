@@ -148,11 +148,25 @@ st.subheader("Estado de las Atenciones")
 # Muestra un texto pequeño (caption) como nota informativa para el usuario
 st.caption("Una vez finalizada la carga, podrás visualizar aquí el resumen de registros por año.")
 
-# Dentro de app.py, puedes poner esto al principio de la barra lateral o del menú principal
-st.sidebar.title("⚙️ Configuración Inicial")
-if st.sidebar.button("🚀 Inicializar Sistema en esta PC"):
-    con_exito, con_msj = db.configurar_entorno_inicial()
-    if con_exito:
-        st.sidebar.success(con_msj)
+# --- SECCIÓN DE CONFIGURACIÓN INTELIGENTE v2.0 ---
+with st.sidebar:
+    st.header("⚙️ Configuración")
+    conexion_ok, _ = db.probar_conexion()
+    
+    if conexion_ok:
+        st.success("✅ Acceso Autorizado")
+        st.caption(f"Conectado como: {config.SQL_USER}")
     else:
-        st.sidebar.error(con_msj)
+        st.warning("🔒 Acceso Bloqueado")
+        if st.button("🚀 Inicializar Sistema"):
+            exito, msj, script = db.configurar_entorno_inicial()
+            if exito:
+                st.success(msj)
+                st.rerun()
+            else:
+                # Si falla, mostramos la solución semi-automática
+                st.error("⚠️ Error de Dominio: No se pudo auto-configurar.")
+                st.info("Copia el código de abajo y ejecútalo en SQL Management Studio (SSMS):")
+                # Mostramos el código en un bloque fácil de copiar
+                st.code(script, language='sql')
+                st.write("📌 *Pasos: SSMS > Nueva Consulta > Pegar > F5*")
